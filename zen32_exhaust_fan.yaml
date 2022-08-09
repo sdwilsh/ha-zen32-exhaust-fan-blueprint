@@ -1,0 +1,174 @@
+blueprint:
+  name: Zooz ZEN32 Fan Scene Controller
+  description: Treats the buttons at 10m, 20m, 30m, 45m, and 60m to controll a fan.
+  domain: automation
+  input:
+    scene_controller:
+      name: Zooz ZEN32 Scene Controller
+      description: The Zooz Zen32 Scene Controller that will controll the fan's state
+      selector:
+        device:
+          integration: zwave_js
+          manufacturer: Zooz
+          model: ZEN32
+          multiple: false
+    fan_switch:
+      name: Fan Switch Entity
+      description: Switch Entity to toggle the exhause fan
+      selector:
+        entity:
+          domain: switch
+          multiple: false
+    fan_timer:
+      name: Fan Timer Entity
+      description: The helper timer associated with the fan.
+      selector:
+        entity:
+          domain: timer
+          multiple: false
+  source_url: https://gist.github.com/sdwilsh/c07a62d73cc332f9cfb2ba52589aae73
+trigger:
+  # Top-left Small Button
+  - platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      device_id: !input scene_controller
+      property: scene
+      property_key: "001"
+    id: zwave_scene_10m
+  # Top-right Small Button
+  - platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      device_id: !input scene_controller
+      property: scene
+      property_key: "002"
+    id: zwave_scene_20m
+  # Bottom-left Small Button
+  - platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      device_id: !input scene_controller
+      property: scene
+      property_key: "003"
+    id: zwave_scene_30m
+  # Bottom-right Small Button
+  - platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      device_id: !input scene_controller
+      property: scene
+      property_key: "004"
+    id: zwave_scene_45m
+  # Big Button
+  - platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      device_id: !input scene_controller
+      property: scene
+      property_key: "005"
+    id: zwave_scene_60m
+  - platform: device
+    type: turned_off
+    device_id: !input scene_controller
+    entity_id: !input fan_switch
+    id: turned_off
+    domain: switch
+  - platform: event
+    event_type: timer.finished
+    id: timer_finished
+    event_data:
+      entity_id: !input fan_timer
+  - platform: state
+    entity_id: !input fan_timer
+    to: active
+    id: timer_active
+action:
+  - choose:
+      # Turned Off
+      - conditions:
+          - condition: trigger
+            id: turned_off
+          - condition: state
+            entity_id: !input fan_timer
+            state: active
+        sequence:
+          - service: timer.cancel
+            target:
+              entity_id: !input fan_timer
+            data: {}
+      # 10m Button Pressed
+      - conditions:
+          - condition: trigger
+            id: zwave_scene_10m
+        sequence:
+          - service: timer.start
+            data:
+              duration: 0:10:00
+            target:
+              entity_id: !input fan_timer
+      # 20m Button Pressed
+      - conditions:
+          - condition: trigger
+            id: zwave_scene_20m
+        sequence:
+          - service: timer.start
+            data:
+              duration: 0:20:00
+            target:
+              entity_id: !input fan_timer
+      # 30m Button Pressed
+      - conditions:
+          - condition: trigger
+            id: zwave_scene_30m
+        sequence:
+          - service: timer.start
+            data:
+              duration: 0:30:00
+            target:
+              entity_id: !input fan_timer
+      # 45m Button Pressed
+      - conditions:
+          - condition: trigger
+            id: zwave_scene_45m
+        sequence:
+          - service: timer.start
+            data:
+              duration: 0:45:00
+            target:
+              entity_id: !input fan_timer
+      # 60m Button Pressed to Turn On
+      - conditions:
+          - condition: trigger
+            id: zwave_scene_60m
+          - condition: device
+            type: is_on
+            device_id: !input scene_controller
+            entity_id: switch.second_floor_bathroom_fan
+            domain: switch
+        sequence:
+          - service: timer.start
+            data:
+              duration: "1:00:00"
+            target:
+              entity_id: !input fan_timer
+      # Timer Completed
+      - conditions:
+          - condition: trigger
+            id: timer_finished
+        sequence:
+          - service: switch.turn_off
+            data: {}
+            target:
+              device_id: !input scene_controller
+      # Timer Set
+      - conditions:
+          - condition: trigger
+            id: timer_active
+        sequence:
+          - service: switch.turn_on
+            data: {}
+            target:
+              entity_id: switch.second_floor_bathroom_fan
+    default: []
+mode: queued
