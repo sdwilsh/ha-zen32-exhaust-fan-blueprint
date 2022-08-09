@@ -46,3 +46,22 @@ A blueprint to use a [Zooz ZEN32 Scene Controller](https://www.getzooz.com/zooz-
 │ 30m            │  │ 45m            │
 └────────────────┘  └────────────────┘
 ```
+
+# Contributing
+
+## Setup
+
+```
+python3.10 -m venv .venv
+source .venv/bin/activate
+
+# Install Requirements
+pip install -r requirements.txt
+
+# One-Time Install of Commit Hooks
+pre-commit install
+```
+
+## Testing
+
+Tests are run with `pytest`.
