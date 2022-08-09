@@ -26,7 +26,6 @@ blueprint:
         entity:
           domain: timer
           multiple: false
-  source_url: https://gist.github.com/sdwilsh/c07a62d73cc332f9cfb2ba52589aae73
 trigger:
   # Top-left Small Button
   - platform: event
