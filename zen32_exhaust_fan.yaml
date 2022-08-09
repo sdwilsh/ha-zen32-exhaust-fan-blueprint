@@ -1,3 +1,7 @@
+---
+#
+# Blueprint Metadata
+#
 blueprint:
   name: Zooz ZEN32 Fan Scene Controller
   description: Treats the buttons at 10m, 20m, 30m, 45m, and 60m to controll a fan.
@@ -26,6 +30,10 @@ blueprint:
         entity:
           domain: timer
           multiple: false
+
+#
+# Triggers
+#
 trigger:
   # Top-left Small Button
   - platform: event
@@ -82,6 +90,10 @@ trigger:
     entity_id: !input fan_timer
     to: active
     id: timer_active
+
+#
+# Actions
+#
 action:
   - choose:
       # Turned Off
@@ -170,4 +182,8 @@ action:
             target:
               entity_id: switch.second_floor_bathroom_fan
     default: []
+
+#
+# Mode
+#
 mode: queued
