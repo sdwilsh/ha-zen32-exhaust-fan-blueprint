@@ -1,0 +1,30 @@
+---
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/ambv/black
+    rev: "22.6.0"
+    hooks:
+      - id: black
+        language_version: python3
+  - repo: https://github.com/pycqa/isort
+    rev: "5.10.1"
+    hooks:
+      - id: isort
+        language_version: python3
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: "v1.27.1"
+    hooks:
+      - id: yamllint
+        language_version: python3
+  - repo: local
+    hooks:
+      - id: pyright
+        name: pyright
+        entry: pyright
+        language: node
+        pass_filenames: false
+        types:
+          - python
+        additional_dependencies:
+          - "pyright@1.1.186"
