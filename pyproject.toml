@@ -1,0 +1,38 @@
+[tool.isort]
+profile = "black"
+src_paths = [
+    "tests",
+]
+
+[tool.pyright]
+include = [
+    "tests",
+]
+exclude = [
+    "**/__pycache__"
+]
+pythonVersion = "3.10"
+reportConstantRedefinition = "error"
+reportFunctionMemberAccess = "error"
+reportIncompatibleMethodOverride = "error"
+reportIncompatibleVariableOverride = "error"
+reportInvalidTypeVarUse = "error"
+reportMissingImports = "error"
+reportMissingModuleSource = "error"
+reportMissingParameterType = "error"
+reportMissingTypeStubs = false
+reportMissingTypeArgument = "error"
+reportOverlappingOverload = "error"
+reportPrivateUsage = "error"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "error"
+reportUnknownVariableType = "error"
+reportUntypedBaseClass = "error"
+reportUntypedClassDecorator = "error"
+reportUntypedFunctionDecorator = "error"
+reportUntypedNamedTuple = "error"
+reportUnusedClass = "error"
+reportUnusedFunction = "error"
+reportUnusedImport = "error"
+reportUnusedVariable = "error"
+typeCheckingMode = "strict"

@@ -4,12 +4,14 @@
 #
 blueprint:
   name: Zooz ZEN32 Fan Scene Controller
-  description: Treats the buttons at 10m, 20m, 30m, 45m, and 60m to controll a fan.
+  description: >-
+    Treats the buttons at 10m, 20m, 30m, 45m, and 60m to controll a fan.
   domain: automation
   input:
     scene_controller:
       name: Zooz ZEN32 Scene Controller
-      description: The Zooz Zen32 Scene Controller that will controll the fan's state
+      description: >-
+        The Zooz Zen32 Scene Controller that will controll the fan's state
       selector:
         device:
           integration: zwave_js
