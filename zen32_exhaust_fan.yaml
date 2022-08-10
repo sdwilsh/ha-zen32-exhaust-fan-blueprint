@@ -157,7 +157,7 @@ action:
           - condition: device
             type: is_on
             device_id: !input scene_controller
-            entity_id: switch.second_floor_bathroom_fan
+            entity_id: !input fan_switch
             domain: switch
         sequence:
           - service: timer.start
@@ -182,7 +182,7 @@ action:
           - service: switch.turn_on
             data: {}
             target:
-              entity_id: switch.second_floor_bathroom_fan
+              entity_id: !input fan_switch
     default: []
 
 #
