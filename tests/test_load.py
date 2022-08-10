@@ -1,12 +1,9 @@
-import os
 from typing import Any, Dict
 
 from homeassistant.components.blueprint import models
 from homeassistant.util import yaml
 
-BLUEPRINT = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "zen32_exhaust_fan.yaml"
-)
+from . import BLUEPRINT
 
 
 def test_validation():
