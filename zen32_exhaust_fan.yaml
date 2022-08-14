@@ -34,6 +34,14 @@ blueprint:
           multiple: false
 
 #
+# Variables
+#
+variables:
+  fan_switch: !input fan_switch
+  fan_timer: !input fan_timer
+  scene_controller: !input scene_controller
+
+#
 # Triggers
 #
 trigger:
