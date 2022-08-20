@@ -45,61 +45,67 @@ variables:
 # Triggers
 #
 trigger:
-  # Top-left Small Button
-  - platform: event
+  #
+  # Button Triggers
+  #
+  - platform: event # Top-left Small Button
     event_type: zwave_js_value_notification
     event_data:
       device_id: !input scene_controller
       property: scene
       property_key: "001"
     id: zwave_scene_10m
-  # Top-right Small Button
-  - platform: event
+  - platform: event # Top-right Small Button
     event_type: zwave_js_value_notification
     event_data:
       device_id: !input scene_controller
       property: scene
       property_key: "002"
     id: zwave_scene_20m
-  # Bottom-left Small Button
-  - platform: event
+  - platform: event # Bottom-left Small Button
     event_type: zwave_js_value_notification
     event_data:
       device_id: !input scene_controller
       property: scene
       property_key: "003"
     id: zwave_scene_30m
-  # Bottom-right Small Button
-  - platform: event
+  - platform: event # Bottom-right Small Button
     event_type: zwave_js_value_notification
     event_data:
       device_id: !input scene_controller
       property: scene
       property_key: "004"
     id: zwave_scene_45m
-  # Big Button
-  - platform: event
+  - platform: event # Big Button
     event_type: zwave_js_value_notification
     event_data:
       device_id: !input scene_controller
       property: scene
       property_key: "005"
     id: zwave_scene_60m
-  - platform: device
+
+  #
+  # Timer Triggers
+  #
+  - platform: event # Timer Finished
+    event_type: timer.finished
+    id: timer_finished
+    event_data:
+      entity_id: !input fan_timer
+  - platform: state # Timer Changed
+    entity_id: !input fan_timer
+    attribute: finishes_at
+    id: timer_changed
+
+  #
+  # Device State Triggers
+  #
+  - platform: device # Turned Off
     type: turned_off
     device_id: !input scene_controller
     entity_id: !input fan_switch
     id: turned_off
     domain: switch
-  - platform: event
-    event_type: timer.finished
-    id: timer_finished
-    event_data:
-      entity_id: !input fan_timer
-  - platform: state
-    entity_id: !input fan_timer
-    attribute: finishes_at
-    id: timer_changed
 
   #
   # State Event Triggers
