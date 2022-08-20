@@ -188,6 +188,36 @@ action:
           - condition: trigger
             id: state_OFF
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 0 # On when load is off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -210,6 +240,36 @@ action:
           - condition: trigger
             id: state_ON_NO_TIME
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -232,6 +292,36 @@ action:
           - condition: trigger
             id: state_ON_GT_45_MIN
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -256,6 +346,36 @@ action:
           - condition: trigger
             id: state_ON_GT_30_LTE_45_MIN
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 0 # On when load is off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -280,6 +400,36 @@ action:
           - condition: trigger
             id: state_ON_GT_20_LTE_30_MIN
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 0 # On when load is off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -304,6 +454,36 @@ action:
           - condition: trigger
             id: state_ON_GT_10_LTE_20_MIN
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 0 # On when load is off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -328,6 +508,36 @@ action:
           - condition: trigger
             id: state_ON_LTE_10_MIN
         sequence:
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "1" # Big Button
+              value: 0 # On when load is off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "2" # Small Top-Left Button
+              value: 3 # Always on
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "3" # Small Top-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "4" # Small Bottom-Left Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "5" # Small Bottom-Right Button
+              value: 2 # Always off
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
