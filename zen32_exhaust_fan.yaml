@@ -106,6 +106,12 @@ trigger:
     entity_id: !input fan_switch
     id: turned_off
     domain: switch
+  - platform: device # Turned On
+    type: turned_on
+    device_id: !input scene_controller
+    entity_id: !input fan_switch
+    id: turned_on
+    domain: switch
 
   #
   # State Event Triggers
@@ -771,17 +777,27 @@ action:
           - condition: trigger
             id: turned_off
         sequence:
+          - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+            event_data:
+              scene_controller: !input scene_controller
+              fan_switch: !input fan_switch
+              fan_timer: !input fan_timer
+              new_state: "OFF"
+      - conditions: # Turned On
+          - condition: trigger
+            id: turned_on
+        sequence:
           - if:
               - condition: state
                 entity_id: !input fan_timer
-                state: active
+                state: idle
             then:
               - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
                 event_data:
                   scene_controller: !input scene_controller
                   fan_switch: !input fan_switch
                   fan_timer: !input fan_timer
-                  new_state: "OFF"
+                  new_state: ON_NO_TIME
 
     default:
       - service: system_log.write
