@@ -640,22 +640,9 @@ action:
               entity_id: !input fan_timer
 
       #
-      # Other State
+      # Timer State
       #
 
-      - conditions: # Turned Off
-          - condition: trigger
-            id: turned_off
-          - condition: state
-            entity_id: !input fan_timer
-            state: active
-        sequence:
-          - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-            event_data:
-              scene_controller: !input scene_controller
-              fan_switch: !input fan_switch
-              fan_timer: !input fan_timer
-              new_state: "OFF"
       - conditions: # Timer Completed
           - condition: trigger
             id: timer_finished
@@ -749,6 +736,24 @@ action:
                       fan_timer: !input fan_timer
                       new_state: ON_LTE_10_MIN
             default: []
+
+      #
+      # Device State
+      #
+
+      - conditions: # Turned Off
+          - condition: trigger
+            id: turned_off
+          - condition: state
+            entity_id: !input fan_timer
+            state: active
+        sequence:
+          - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+            event_data:
+              scene_controller: !input scene_controller
+              fan_switch: !input fan_switch
+              fan_timer: !input fan_timer
+              new_state: "OFF"
 
     default: []
 
