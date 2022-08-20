@@ -735,7 +735,14 @@ action:
                       fan_switch: !input fan_switch
                       fan_timer: !input fan_timer
                       new_state: ON_LTE_10_MIN
-            default: []
+            default:
+              - service: system_log.write
+                data_template:
+                  level: error
+                  logger: zen32_exhaust_fan_blueprint
+                  message: >-
+                    "Unable to compute proper state for {{ trigger.id }} for {{
+                    fan_switch }} with scene controller {{ scene_controller }}."
 
       #
       # Device State
