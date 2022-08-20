@@ -110,6 +110,14 @@ trigger:
   #
   # State Event Triggers
   #
+  - platform: event # UNKNOWN
+    event_type: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+    event_data:
+      scene_controller: !input scene_controller
+      fan_switch: !input fan_switch
+      fan_timer: !input fan_timer
+      new_state: UNKNOWN
+    id: state_UNKNOWN
   - platform: event # OFF
     event_type: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
     event_data:
@@ -190,6 +198,92 @@ action:
       # Event-based Actions
       #
 
+      - conditions: # State: UNKNOWN
+          - condition: trigger
+            id: state_UNKNOWN
+        sequence:
+          - choose:
+              - conditions: # Remaining > 45m
+                  - condition: template
+                    value_template: >-
+                      {% set remaining =
+                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
+                      'finishes_at')) - as_timestamp(now())) | int) %}{{
+                      remaining > timedelta(minutes=45) }}
+                sequence:
+                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                    event_data:
+                      scene_controller: !input scene_controller
+                      fan_switch: !input fan_switch
+                      fan_timer: !input fan_timer
+                      new_state: ON_GT_45_MIN
+              - conditions: # Remaining > 30m, <= 45m
+                  - condition: template
+                    value_template: >-
+                      {% set remaining =
+                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
+                      'finishes_at')) - as_timestamp(now())) | int) %}{{
+                      remaining > timedelta(minutes=30) and remaining <=
+                      timedelta(minutes=45) }}
+                sequence:
+                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                    event_data:
+                      scene_controller: !input scene_controller
+                      fan_switch: !input fan_switch
+                      fan_timer: !input fan_timer
+                      new_state: ON_GT_30_LTE_45_MIN
+              - conditions: # Remaining > 20m, <= 30m
+                  - condition: template
+                    value_template: >-
+                      {% set remaining =
+                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
+                      'finishes_at')) - as_timestamp(now())) | int) %}{{
+                      remaining > timedelta(minutes=20) and remaining <=
+                      timedelta(minutes=30) }}
+                sequence:
+                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                    event_data:
+                      scene_controller: !input scene_controller
+                      fan_switch: !input fan_switch
+                      fan_timer: !input fan_timer
+                      new_state: ON_GT_20_LTE_30_MIN
+              - conditions: # Remaining > 10m, <= 20m
+                  - condition: template
+                    value_template: >-
+                      {% set remaining =
+                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
+                      'finishes_at')) - as_timestamp(now())) | int) %}{{
+                      remaining > timedelta(minutes=10) and remaining <=
+                      timedelta(minutes=20) }}
+                sequence:
+                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                    event_data:
+                      scene_controller: !input scene_controller
+                      fan_switch: !input fan_switch
+                      fan_timer: !input fan_timer
+                      new_state: ON_GT_10_LTE_20_MIN
+              - conditions: # Remaining <= 10m
+                  - condition: template
+                    value_template: >-
+                      {% set remaining =
+                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
+                      'finishes_at')) - as_timestamp(now())) | int) %}{{
+                      remaining <= timedelta(minutes=10) }}
+                sequence:
+                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                    event_data:
+                      scene_controller: !input scene_controller
+                      fan_switch: !input fan_switch
+                      fan_timer: !input fan_timer
+                      new_state: ON_LTE_10_MIN
+            default:
+              - service: system_log.write
+                data_template:
+                  level: error
+                  logger: zen32_exhaust_fan_blueprint
+                  message: >-
+                    "Unable to compute proper state for {{ trigger.id }} for {{
+                    fan_switch }} with scene controller {{ scene_controller }}."
       - conditions: # State: OFF
           - condition: trigger
             id: state_OFF
@@ -653,96 +747,21 @@ action:
               fan_switch: !input fan_switch
               fan_timer: !input fan_timer
               new_state: "OFF"
-      - conditions: # Timer Set
-          # Figure out what state we are in
+      - conditions: # Timer Changed
           - condition: trigger
             id: timer_changed
-          - condition: state
-            entity_id: !input fan_timer
-            state: active
         sequence:
-          - choose:
-              - conditions: # Remaining > 45m
-                  - condition: template
-                    value_template: >-
-                      {% set remaining =
-                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
-                      'finishes_at')) - as_timestamp(now())) | int) %}{{
-                      remaining > timedelta(minutes=45) }}
-                sequence:
-                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-                    event_data:
-                      scene_controller: !input scene_controller
-                      fan_switch: !input fan_switch
-                      fan_timer: !input fan_timer
-                      new_state: ON_GT_45_MIN
-              - conditions: # Remaining > 30m, <= 45m
-                  - condition: template
-                    value_template: >-
-                      {% set remaining =
-                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
-                      'finishes_at')) - as_timestamp(now())) | int) %}{{
-                      remaining > timedelta(minutes=30) and remaining <=
-                      timedelta(minutes=45) }}
-                sequence:
-                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-                    event_data:
-                      scene_controller: !input scene_controller
-                      fan_switch: !input fan_switch
-                      fan_timer: !input fan_timer
-                      new_state: ON_GT_30_LTE_45_MIN
-              - conditions: # Remaining > 20m, <= 30m
-                  - condition: template
-                    value_template: >-
-                      {% set remaining =
-                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
-                      'finishes_at')) - as_timestamp(now())) | int) %}{{
-                      remaining > timedelta(minutes=20) and remaining <=
-                      timedelta(minutes=30) }}
-                sequence:
-                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-                    event_data:
-                      scene_controller: !input scene_controller
-                      fan_switch: !input fan_switch
-                      fan_timer: !input fan_timer
-                      new_state: ON_GT_20_LTE_30_MIN
-              - conditions: # Remaining > 10m, <= 20m
-                  - condition: template
-                    value_template: >-
-                      {% set remaining =
-                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
-                      'finishes_at')) - as_timestamp(now())) | int) %}{{
-                      remaining > timedelta(minutes=10) and remaining <=
-                      timedelta(minutes=20) }}
-                sequence:
-                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-                    event_data:
-                      scene_controller: !input scene_controller
-                      fan_switch: !input fan_switch
-                      fan_timer: !input fan_timer
-                      new_state: ON_GT_10_LTE_20_MIN
-              - conditions: # Remaining <= 10m
-                  - condition: template
-                    value_template: >-
-                      {% set remaining =
-                      timedelta(seconds=(as_timestamp(state_attr(fan_timer,
-                      'finishes_at')) - as_timestamp(now())) | int) %}{{
-                      remaining <= timedelta(minutes=10) }}
-                sequence:
-                  - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-                    event_data:
-                      scene_controller: !input scene_controller
-                      fan_switch: !input fan_switch
-                      fan_timer: !input fan_timer
-                      new_state: ON_LTE_10_MIN
-            default:
-              - service: system_log.write
-                data_template:
-                  level: error
-                  logger: zen32_exhaust_fan_blueprint
-                  message: >-
-                    "Unable to compute proper state for {{ trigger.id }} for {{
-                    fan_switch }} with scene controller {{ scene_controller }}."
+          - if:
+              - condition: state
+                entity_id: !input fan_timer
+                state: active
+            then:
+              - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                event_data:
+                  scene_controller: !input scene_controller
+                  fan_switch: !input fan_switch
+                  fan_timer: !input fan_timer
+                  new_state: UNKNOWN
 
       #
       # Device State
