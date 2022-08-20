@@ -744,18 +744,27 @@ action:
       - conditions: # Turned Off
           - condition: trigger
             id: turned_off
-          - condition: state
-            entity_id: !input fan_timer
-            state: active
         sequence:
-          - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
-            event_data:
-              scene_controller: !input scene_controller
-              fan_switch: !input fan_switch
-              fan_timer: !input fan_timer
-              new_state: "OFF"
+          - if:
+              - condition: state
+                entity_id: !input fan_timer
+                state: active
+            then:
+              - event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+                event_data:
+                  scene_controller: !input scene_controller
+                  fan_switch: !input fan_switch
+                  fan_timer: !input fan_timer
+                  new_state: "OFF"
 
-    default: []
+    default:
+      - service: system_log.write
+        data_template:
+          level: error
+          logger: zen32_exhaust_fan_blueprint
+          message: >-
+            "Unexpected default for trigger {{ trigger.id }} for {{ fan_switch
+            }} with scene controller {{ scene_controller }}."
 
 #
 # Mode
