@@ -13,7 +13,7 @@ A blueprint to use a [Zooz ZEN32 Scene Controller](https://www.getzooz.com/zooz-
 │                                    │
 │ ┌─┐ Blue when off                  │
 │ └─┘ White w/ time left > 45m       │
-│                                    │
+│     Green when on w/ no time set   │
 │                                    │
 │                                    │
 │                                    │
