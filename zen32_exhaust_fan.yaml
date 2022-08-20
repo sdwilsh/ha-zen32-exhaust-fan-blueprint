@@ -218,6 +218,12 @@ action:
               value: 2 # Always off
             target:
               device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "6" # Big Button LED Color
+              value: 1 # Blue
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -270,6 +276,12 @@ action:
               value: 2 # Always off
             target:
               device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "6" # Big Button LED Color
+              value: 2 # Green
+            target:
+              device_id: !input scene_controller
           - if:
               - condition: state
                 entity_id: !input fan_switch
@@ -320,6 +332,12 @@ action:
             data:
               parameter: "5" # Small Bottom-Right Button
               value: 2 # Always off
+            target:
+              device_id: !input scene_controller
+          - service: zwave_js.set_config_parameter
+            data:
+              parameter: "6" # Big Button LED Color
+              value: 0 # White
             target:
               device_id: !input scene_controller
           - if:
