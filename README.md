@@ -3,6 +3,8 @@ A blueprint to use a [Zooz ZEN32 Scene Controller](https://www.getzooz.com/zooz-
 
 [![Import Blueprint in Home Assistant](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fraw.githubusercontent.com%2Fsdwilsh%2Fha-zen32-exhaust-fan-blueprint%2Fmain%2Fzen32_exhaust_fan.yaml)
 
+You can also see the discussion about this Blueprint [in the Home Assistant Community Blueprint Exchange](https://community.home-assistant.io/t/zooz-zen32-scene-controller-for-timed-exhaust-fan-control/452275).
+
 # Requirements
 * [Timer](https://www.home-assistant.io/integrations/timer/) entity to track time remaining for the exhaust fan 
 * [Switch](https://www.home-assistant.io/integrations/switch/) entity to turn the fan on/off (can be the scene controller if wired that way)
