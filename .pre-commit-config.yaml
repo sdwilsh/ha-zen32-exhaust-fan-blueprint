@@ -3,17 +3,20 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/ambv/black
-    rev: "22.8.0"
+    # renovate: datasource=pypi depName=black
+    rev: 22.8.0
     hooks:
       - id: black
         language_version: python3
   - repo: https://github.com/pycqa/isort
-    rev: "5.12.0"
+    # renovate: datasource=pypi depName=isort
+    rev: 5.12.0
     hooks:
       - id: isort
         language_version: python3
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: "v1.27.1"
+    # renovate: datasource=pypi depName=yamllint
+    rev: v1.27.1
     hooks:
       - id: yamllint
         language_version: python3
