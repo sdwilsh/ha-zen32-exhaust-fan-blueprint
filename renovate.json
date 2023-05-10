@@ -16,6 +16,14 @@
   "regexManagers": [
     {
       "fileMatch": [
+        "^.pre-commit-config.yaml$"
+      ],
+      "matchStrings": [
+        "#\\srenovate:\\sdatasource=(?<datasource>.*?)\\sdepName=(?<depName>.*?)\\n\\s+rev:\\s\\\"?v?(?<currentValue>.*?)\\\"?\\s"
+      ]
+    },
+    {
+      "fileMatch": [
         "^Earthfile$"
       ],
       "matchStrings": [
