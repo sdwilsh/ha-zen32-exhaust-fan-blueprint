@@ -702,6 +702,19 @@ action:
                 duration: "1:00:00"
               target:
                 entity_id: !input fan_timer
+          - if:
+              - condition: device
+                type: is_off
+                device_id: !input scene_controller
+                entity_id: !input fan_switch
+                domain: switch
+            then:
+              event: ZEN32_EXHAUST_FAN_BLUEPRINT_STATE_CHANGE
+              event_data:
+                scene_controller: !input scene_controller
+                fan_switch: !input fan_switch
+                fan_timer: !input fan_timer
+                new_state: "OFF"
       - conditions: # 45m Button Pressed
           - condition: trigger
             id: zwave_scene_45m
