@@ -10,7 +10,7 @@ repos:
         language_version: python3
   - repo: https://github.com/pycqa/isort
     # renovate: datasource=pypi depName=isort
-    rev: 5.13.0
+    rev: 5.13.1
     hooks:
       - id: isort
         language_version: python3
