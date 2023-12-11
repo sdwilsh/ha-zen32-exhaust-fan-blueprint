@@ -1,5 +1,5 @@
 black ==23.11.0
-isort ==5.13.0
+isort ==5.13.1
 pre-commit ==3.6.0
 pytest-homeassistant-custom-component==0.13.31
 yamllint==1.33.0
