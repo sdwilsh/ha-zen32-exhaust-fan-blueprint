@@ -14,9 +14,13 @@ blueprint:
         The Zooz Zen32 Scene Controller that will controll the fan's state
       selector:
         device:
-          integration: zwave_js
-          manufacturer: Zooz
-          model: ZEN32
+          filter:
+          - integration: zwave_js
+            manufacturer: Zooz
+            model: ZEN32
+          - integration: zwave_js
+            manufacturer: Zooz
+            model: ZEN32 800LR
           multiple: false
     fan_switch:
       name: Fan Switch Entity
