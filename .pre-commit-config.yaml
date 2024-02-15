@@ -16,7 +16,7 @@ repos:
         language_version: python3
   - repo: https://github.com/adrienverge/yamllint.git
     # renovate: datasource=pypi depName=yamllint
-    rev: v1.34.0
+    rev: v1.35.0
     hooks:
       - id: yamllint
         language_version: python3
