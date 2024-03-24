@@ -11,7 +11,7 @@ python-requirements:
 
 pre-commit-validate:
     # renovate: datasource=pypi depName=pre-commit
-    ARG PRE_COMMIT_VERSION=3.6.2
+    ARG PRE_COMMIT_VERSION=3.7.0
     FROM +python-requirements
     WORKDIR /usr/src/app
     RUN pip install --no-cache-dir pre-commit==$PRE_COMMIT_VERSION
