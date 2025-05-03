@@ -27,7 +27,7 @@ pyright-validate:
 
 renovate-validate:
     # renovate: datasource=docker depName=renovate/renovate versioning=docker
-    ARG RENOVATE_VERSION=37
+    ARG RENOVATE_VERSION=40
     FROM renovate/renovate:$RENOVATE_VERSION
     WORKDIR /usr/src/app
     COPY renovate.json .
