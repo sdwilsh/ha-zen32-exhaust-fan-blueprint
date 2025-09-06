@@ -1,5 +1,5 @@
 black ==24.10.0
 isort ==5.13.2
 pre-commit ==3.8.0
-pytest-homeassistant-custom-component==0.13.31
+pytest-homeassistant-custom-component==0.13.278
 yamllint==1.37.1
